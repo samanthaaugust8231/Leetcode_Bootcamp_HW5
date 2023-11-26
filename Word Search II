@@ -1,0 +1,22 @@
+class Solution(object):
+    def findWords(self, board, words):
+        def dfs(node, i, j, path):
+            if node.is_end_of_word:
+                result.add(path)
+
+            if 0 <= i < m and 0 <= j < n and board[i][j] in node.children:
+                char = board[i][j]
+                board[i][j] = '#'  # Mark the cell as visited
+                for di, dj in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                    dfs(node.children[char], i + di, j + dj, path + char)
+                board[i][j] = char  # Restore the original character
+
+        m, n = len(board), len(board[0])
+        result = set()
+
+        for i in range(m):
+            for j in range(n):
+                dfs(trie, i, j, "")
+
+        return list(result)
+        
